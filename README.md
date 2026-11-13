@@ -43,3 +43,20 @@ Simplemente escribimos en la línea de comandos: **deactivate**
 
 - **Credenciales del controlador:** los scripts usan el usuario `cisco` y la clave `cisco123!`. Si en tu Network Controller creaste otro usuario, cambialos en `01_get-ticket.py` y en `04_tabulate.py`.
 - **Ticket (X-Auth-Token):** `02_get-network-device.py` y `03_get-host.py` traen escrito un ticket de ejemplo que **no va a funcionar** en tu Packet Tracer, porque el controlador genera uno nuevo en cada sesión y vence. Ejecutá primero `01_get-ticket.py`, copiá el ticket que muestra y reemplazalo en el header `X-Auth-Token` de esos dos scripts. `04_tabulate.py` no necesita este paso: pide el ticket solo.
+
+
+## Scripts del repositorio (TP N° 4 – Grupo 15)
+
+| Script | Qué hace |
+| --- | --- |
+| `src/01_get-ticket.py` | Pide el ticket (X-Auth-Token) al Network Controller con POST /ticket. |
+| `src/02_get-network-device.py` | Lista los dispositivos de red (GET /network-device): nombre, plataforma e IP de gestión. Hay que pegarle el ticket a mano. |
+| `src/03_get-host.py` | Lista los hosts (GET /host): nombre, IP, MAC e interfaz donde están conectados. Hay que pegarle el ticket a mano. |
+| `src/04_tabulate.py` | Pide el ticket solo y muestra dispositivos y hosts en tablas con la biblioteca tabulate. |
+| `src/05_inventario_csv.py` | **Script propio.** Pide usuario y clave del NC (la clave no queda en el código), obtiene el ticket, junta dispositivos y hosts en un único inventario y lo exporta a `inventario_red.csv` (separado por `;`, se abre con Excel). |
+
+### Cómo correr el script propio
+
+1. Abrir Packet Tracer con el .pkt del grupo y habilitar el acceso externo al Network Controller (puerto 58000).
+2. Activar el entorno virtual e instalar dependencias: `pip install -r requirements.txt`.
+3. Ejecutar `python src/05_inventario_csv.py` e ingresar el usuario y la clave del NC.
